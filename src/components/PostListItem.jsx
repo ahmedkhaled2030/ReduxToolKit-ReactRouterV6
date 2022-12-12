@@ -1,38 +1,32 @@
-import {
-  Container,
-  Row,
-  Col,
-  Table,
-  Button,
-  ButtonGroup,
-  NavLink,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
-import './PostList.css'
+import { Button, ButtonGroup } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 
 const PostListItem = ({ data, deleteRecord }) => {
-  const deleteHandler = (item) => {
-    if (window.confirm(`Do you really want to delete record : ${item.title}`)) {
-      deleteRecord(item.id)
-    }
+  const navigate = useNavigate();
 
-  }
-  console.log(data ,"data")
-  const records = data?.map((el, idx) => (
+  const deleteHandler = (item) => {
+    if (window.confirm(`Do you really want to delete record: ${item.title}?`)) {
+      deleteRecord(item.id);
+    }
+  };
+
+  const records = data.map((el, idx) => (
     <tr key={el.id}>
-      <td>{++idx}</td>
-      <td><Link to={`posts/${el.id}`}>{el.title}</Link></td>
-      <td>{el.description}</td>
+      <td>#{++idx}</td>
       <td>
-        <ButtonGroup aria-label="Basic example">
-          <Button variant="success" >Edit</Button>
-         
-        </ButtonGroup>
+        <Link to={`post/${el.id}`}>{el.title}</Link>
       </td>
       <td>
         <ButtonGroup aria-label="Basic example">
-         
-          <Button variant="danger" onClick={() => deleteHandler(el)}>Delete</Button>
+          <Button
+            variant="success"
+            onClick={() => navigate(`post/${el.id}/edit`)}
+          >
+            Edit
+          </Button>
+          <Button variant="danger" onClick={() => deleteHandler(el)}>
+            Delete
+          </Button>
         </ButtonGroup>
       </td>
     </tr>

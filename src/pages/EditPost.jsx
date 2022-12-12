@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import { Form, Button } from "react-bootstrap";
 
-const Edit = () => {
+const EditPost = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error, record } = usePostDetails();
@@ -57,4 +57,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default EditPost;

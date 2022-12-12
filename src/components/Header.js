@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import React from "react";
 
 const Header = () => {
   return (
@@ -6,12 +6,10 @@ const Header = () => {
       <h1>CRUD APP</h1>
       <ul className="nav">
         <li>
-          <NavLink to="/" end>
-            Home
-          </NavLink>
+          <a href="/">Home</a>
         </li>
         <li>
-          <NavLink to="post/add">Add Post</NavLink>
+          <a href="/">Add Post</a>
         </li>
         <li className="login">login</li>
       </ul>
