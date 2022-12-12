@@ -5,7 +5,9 @@ import {
   Table,
   Button,
   ButtonGroup,
+  NavLink,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import './PostList.css'
 
 const PostListItem = ({ data, deleteRecord }) => {
@@ -19,7 +21,7 @@ const PostListItem = ({ data, deleteRecord }) => {
   const records = data?.map((el, idx) => (
     <tr key={el.id}>
       <td>{++idx}</td>
-      <td>{el.title}</td>
+      <td><Link to={`posts/${el.id}`}>{el.title}</Link></td>
       <td>{el.description}</td>
       <td>
         <ButtonGroup aria-label="Basic example">

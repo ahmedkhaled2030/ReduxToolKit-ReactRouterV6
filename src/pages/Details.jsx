@@ -1,9 +1,19 @@
-import React from 'react'
+import usePostDetails from "../Hooks/use-post-details";
+import Loading from "../components/Loading";
+
 
 const Details = () => {
-  return (
-    <div>Details</div>
-  )
-}
+  const { loading, error, record } = usePostDetails();
 
-export default Details
+
+  return (
+    <div>
+      <Loading loading={loading} error={error} >
+        <p>title : {record?.title}</p>
+        <p>title : {record?.description}</p>
+      </Loading>
+   </div> 
+  )
+};
+
+export default Details;

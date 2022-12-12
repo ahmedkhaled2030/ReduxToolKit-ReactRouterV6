@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         element: <Add />,
       },
       {
-        path: "post/:id",
+        path: "posts/:id",
         element: <Details />,
         loader: ({ params }) => {
           //loader render before the details initiate before everything

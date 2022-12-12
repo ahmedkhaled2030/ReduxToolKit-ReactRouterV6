@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState = { records: [], loading: false, error: null };
+const initialState = { records: [], loading: false, error: null , record:null };
+
 
 //createAsyncThunk(type, asyncFunction)
 export const fetchPosts = createAsyncThunk(
@@ -17,6 +18,24 @@ export const fetchPosts = createAsyncThunk(
     }
   }
 );
+
+
+export const fetchPost = createAsyncThunk(
+  "posts/fetchPost",
+  async (id, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    console.log(id)
+    try {
+      const res = await fetch(`http://localhost:4000/posts/${id}`);
+      const data = await res.json();
+      console.log(data)
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  }
+);
+
 
 //createAsyncThunk(type, asyncFunction)
 export const deletePosts = createAsyncThunk(
@@ -38,25 +57,24 @@ export const insertPost = createAsyncThunk(
   "posts/insertPost",
   async (item, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
-    const { auth , posts } = getState();
-    console.log(auth) //{id: 1, isLoggedIn: true}
-    item.userId = auth.id
-    
+    const { auth, posts } = getState();
+    console.log(auth); //{id: 1, isLoggedIn: true}
+    item.userId = auth.id;
+
     try {
-      console.log(item , "item")
+      console.log(item, "item");
       const res = await fetch("http://localhost:4000/posts", {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(item),
         headers: {
-          "Content-type": "application/json;charset=UTF-8"
-        }
+          "Content-type": "application/json;charset=UTF-8",
+        },
       });
 
       const data = await res.json();
-      return data; 
-      
+      return data;
     } catch (error) {
-      return rejectWithValue(error.message)
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -66,6 +84,20 @@ const postSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+
+    [fetchPost.pending]: (state) => {
+      state.loading = true;
+      state.error = null;
+      state.record = null;
+    },
+    [fetchPost.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.record = action.payload;
+    },
+    [fetchPost.rejected]: (state,action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
     //getPosts
     [fetchPosts.pending]: (state) => {
       state.loading = true;
@@ -101,20 +133,18 @@ const postSlice = createSlice({
     [insertPost.pending]: (state) => {
       state.loading = true;
       state.error = null;
-      
     },
     [insertPost.fulfilled]: (state, action) => {
-      console.log(action , "action")
+      console.log(action, "action");
       state.loading = false;
-       state.records.push(action.payload)
-      
+      state.records.push(action.payload);
     },
     [insertPost.rejected]: (state, action) => {
-      console.log(action , "action")
+      console.log(action, "action");
       state.loading = false;
       state.error = action.payload;
-    }
-  }, 
+    },
+  },
 });
 
 export default postSlice.reducer;
