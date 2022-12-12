@@ -34,6 +34,33 @@ export const deletePosts = createAsyncThunk(
   }
 );
 
+export const insertPost = createAsyncThunk(
+  "posts/insertPost",
+  async (item, thunkAPI) => {
+    const { rejectWithValue, getState } = thunkAPI;
+    const { auth , posts } = getState();
+    console.log(auth) //{id: 1, isLoggedIn: true}
+    item.userId = auth.id
+    
+    try {
+      console.log(item , "item")
+      const res = await fetch("http://localhost:4000/posts", {
+        method: 'POST',
+        body: JSON.stringify(item),
+        headers: {
+          "Content-type": "application/json;charset=UTF-8"
+        }
+      });
+
+      const data = await res.json();
+      return data; 
+      
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  }
+);
+
 const postSlice = createSlice({
   name: "posts",
   initialState,
@@ -46,8 +73,8 @@ const postSlice = createSlice({
     },
     [fetchPosts.fulfilled]: (state, action) => {
       state.loading = false;
-        console.log(action);
-       //action => {type: 'posts/fetchPosts/fulfilled', payload: Array(2)}
+      console.log(action);
+      //action => {type: 'posts/fetchPosts/fulfilled', payload: Array(2)}
       state.records = action.payload;
     },
     [fetchPosts.rejected]: (state, action) => {
@@ -70,7 +97,24 @@ const postSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-  },
+
+    [insertPost.pending]: (state) => {
+      state.loading = true;
+      state.error = null;
+      
+    },
+    [insertPost.fulfilled]: (state, action) => {
+      console.log(action , "action")
+      state.loading = false;
+       state.records.push(action.payload)
+      
+    },
+    [insertPost.rejected]: (state, action) => {
+      console.log(action , "action")
+      state.loading = false;
+      state.error = action.payload;
+    }
+  }, 
 });
 
 export default postSlice.reducer;

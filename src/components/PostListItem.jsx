@@ -6,6 +6,7 @@ import {
   Button,
   ButtonGroup,
 } from "react-bootstrap";
+import './PostList.css'
 
 const PostListItem = ({ data, deleteRecord }) => {
   const deleteHandler = (item) => {
@@ -14,13 +15,21 @@ const PostListItem = ({ data, deleteRecord }) => {
     }
 
   }
-  const records = data.map((el, idx) => (
+  console.log(data ,"data")
+  const records = data?.map((el, idx) => (
     <tr key={el.id}>
       <td>{++idx}</td>
       <td>{el.title}</td>
+      <td>{el.description}</td>
       <td>
         <ButtonGroup aria-label="Basic example">
           <Button variant="success" >Edit</Button>
+         
+        </ButtonGroup>
+      </td>
+      <td>
+        <ButtonGroup aria-label="Basic example">
+         
           <Button variant="danger" onClick={() => deleteHandler(el)}>Delete</Button>
         </ButtonGroup>
       </td>

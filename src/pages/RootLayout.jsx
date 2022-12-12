@@ -1,5 +1,5 @@
 import {
-    Container,
+
     Row,
     Col,
     Table,
@@ -11,14 +11,16 @@ import { Outlet } from "react-router-dom";
 
 const RootLayout = () => {
   return (
-    <Container>
-    <Header />
+<div>
+<Header />
     <Row>
       <Col xs={{ span: 8, offset: 2 }}>
         <Outlet />
       </Col>
     </Row>
-  </Container>
+
+</div>
+
   )
 }
 

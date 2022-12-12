@@ -1,0 +1,9 @@
+Table{
+    text-align: center;
+    overflow:hidden ;
+    border-radius: 2px !important;
+}
+Table tbody  {
+font-weight: 600;
+font-size: 16px;
+}
