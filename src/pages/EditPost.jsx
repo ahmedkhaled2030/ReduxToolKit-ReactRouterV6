@@ -17,7 +17,7 @@ const EditPost = () => {
   const formik = useFormik({
     initialValues: {
       title: record ? record?.title : "",
-      description: record ? record?.title : "",
+      description: record ? record?.description : "",
     },
     enableReinitialize: true,
     validationSchema: postSchema,
@@ -57,7 +57,7 @@ const EditPost = () => {
           name="description"
           onChange={formik.handleChange}
           value={formik.values.description}
-          isInvalid={!!formik.errors.title}
+          isInvalid={!!formik.errors.description}
         />
         <Form.Control.Feedback type="invalid">
           {formik.errors.description}

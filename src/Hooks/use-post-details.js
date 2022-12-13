@@ -8,6 +8,7 @@ const usePostDetails = () => {
 
   const dispatch = useDispatch();
   const { loading, error, record } = useSelector((state) => state.posts);
+  console.log(error , "error")
 
   useEffect(() => {
     dispatch(fetchPost(id));

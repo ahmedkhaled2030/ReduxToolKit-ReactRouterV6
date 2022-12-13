@@ -74,7 +74,7 @@ export const editPost = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await fetch(`http://localhost:4000/posts/${item.id}`, {
-        method: "PATCH",
+        method: "PUT",
         body: JSON.stringify(item),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
