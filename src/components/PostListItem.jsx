@@ -1,7 +1,7 @@
 import { Button, ButtonGroup } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
-const PostListItem = ({ data, deleteRecord }) => {
+const PostListItem = ({ data, deleteRecord ,isLoggedIn }) => {
   const navigate = useNavigate();
 
   const deleteHandler = (item) => {
@@ -21,10 +21,11 @@ const PostListItem = ({ data, deleteRecord }) => {
           <Button
             variant="success"
             onClick={() => navigate(`post/${el.id}/edit`)}
+            hidden={!isLoggedIn}
           >
             Edit
           </Button>
-          <Button variant="danger" onClick={() => deleteHandler(el)}>
+          <Button variant="danger" onClick={() => deleteHandler(el)} hidden={!isLoggedIn}>
             Delete
           </Button>
         </ButtonGroup>

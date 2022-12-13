@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { insertPost } from "../state/postSlice";
 import { Form, Button } from "react-bootstrap";
 import Loading from "../components/Loading";
+import withGuard from "../util/withGuard";
 
-const AddPost = () => {
+
+const AddPost = (props) => {
+  console.log(props)
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -53,4 +56,4 @@ const AddPost = () => {
   );
 };
 
-export default AddPost;
+export default withGuard(AddPost) ;
