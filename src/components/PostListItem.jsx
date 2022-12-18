@@ -16,7 +16,7 @@ const PostListItem = ({ data, deleteRecord ,isLoggedIn }) => {
       <td>
         <Link to={`post/${el.id}`}>{el.title}</Link>
       </td>
-      <td>
+      {isLoggedIn ? (    <td>
         <ButtonGroup aria-label="Basic example">
           <Button
             variant="success"
@@ -29,7 +29,8 @@ const PostListItem = ({ data, deleteRecord ,isLoggedIn }) => {
             Delete
           </Button>
         </ButtonGroup>
-      </td>
+      </td>):("")}
+  
     </tr>
   ));
   return <>{records}</>;

@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import { postSchema } from "../util/validationSchema";
 
 const AddPost = (props) => {
+
   const formik = useFormik({
     initialValues: {
       title: "",

@@ -9,7 +9,8 @@ const PostList = ({ data, deleteRecord  ,isLoggedIn}) => {
         <tr>
           <th>#</th>
           <th style={{ width: "70%" }}>Title</th>
-          <th  style={{ width: "10%" }}>Control</th>
+          {isLoggedIn ? (<th  style={{ width: "10%" }}>Control</th>) : ("")}
+  
         </tr>
       </thead>
       <tbody>

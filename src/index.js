@@ -33,15 +33,31 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Index /> },
       { path: "post", element: <Index /> },
-      { path: "post/add", element: <Suspense fallback="loading Please Wait..."><AddPost  /> </Suspense> },
+      {
+        path: "post/add",
+        element: (
+          <Suspense fallback="loading Please Wait...">
+            <AddPost item="aaaaaaaa" />{" "}
+          </Suspense>
+        ),
+      },
+      //if the addPost wrapped  with HOC with guard if you need to pass  props to it it will firstly to with guard then to the addPost
       {
         path: "post/:id",
-        element: <Suspense fallback="loading Please Wait..."><Details /></Suspense>,
+        element: (
+          <Suspense fallback="loading Please Wait...">
+            <Details />
+          </Suspense>
+        ),
         loader: postParamHandler,
       },
       {
         path: "post/:id/edit",
-        element: <Suspense fallback="loading Please Wait..."><EditPost /></Suspense>,
+        element: (
+          <Suspense fallback="loading Please Wait...">
+            <EditPost />
+          </Suspense>
+        ),
         loader: postParamHandler,
       },
     ],
